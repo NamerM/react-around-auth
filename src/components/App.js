@@ -7,16 +7,13 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import api from '../../src/utils/api';
-import auth from '../utils/auth';
-import Register from './Register.js';
-import ProtectedRoute from './ProtectedRoute.js';
-
-
-
-import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
 import '../index.js';
-import { Switch, useHistory } from 'react-router-dom';
-//import { useEffect } from 'react';
+import * as auth from "../utils/auth.js";
+import Register from './Register.js';
+import Login from './Login.js';
+import ProtectedRoute from './ProtectedRoute.js';
+import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
+import { Redirect, Switch, useHistory, Route } from 'react-router-dom';
 
 //app.use('signin');
 //app.use('signup');
@@ -38,8 +35,13 @@ function App() {
   const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState('');
 
-  const handleLogin = () => {
-    auth.signin()
+  const handleRegister = (password, email) => {
+    auth.signup(password, email)
+      .then
+  }
+
+  const handleLogin = (token) => {
+    auth.signin(token)
       .then(res => {  // { data: token  }
         setisLoggedIn(true)
         history.push('/')
@@ -57,7 +59,7 @@ function App() {
         setUserData(res)
       })
       .catch((err) => {
-        history.push('/sign-in')
+        history.push('/signin')
       })
       .finally(() => setisCheckingToken(false))
     }
@@ -79,7 +81,7 @@ function App() {
   useEffect(() => {
     if(!isLoggedIn) {
       localStorage.removeItem('token', token)
-      history.push('/sign-in')
+      history.push('/signin')
       setUserData({})
     }
   }, [isLoggedIn])
@@ -131,9 +133,6 @@ function App() {
     setSelectedCard(undefined);
   }
 
-
-
-
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -163,8 +162,7 @@ function App() {
         setSubmitButtonEffect(false)
       })
   }
-
-      //{/* handeLikeClick card._id olduğundan burada sadece id objecti gerekiyor bize api.dele velike card._id card return card*/}
+  //{/* handeLikeClick card._id olduğundan burada sadece id objecti gerekiyor bize api.dele velike card._id card return card*/}
   function handleCardLike(card) {
     const isLiked = card.likes.some(user => user._id === currentUser._id);
 
@@ -227,7 +225,7 @@ function App() {
           />
           <Header />
           <Switch>
-            <ProtectedRoute path={''} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken} >     {/* component={<Main /> */}
+            <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken} >     {/* component={<Main /> */}
               <Main
               onEditAvatarClick={handleEditAvatarClick}
               onEditProfileClick={handleEditProfileClick}
@@ -238,16 +236,18 @@ function App() {
               cards = {cards}
               />
             </ProtectedRoute>
-            <Route path={'/sign-in'}>
-              <Login handleLogin={handleLogin}/>
+            <Route path={"/signup"}>
+              <Register onRegisterUser={handleRegister} isLoading={submitButtonEffect} />
             </Route>
-            <Route path={'/sign-up'}>
-              <Register onRegister={onRegister} />
+            <Route path={"/signin"}>
+              <Login handleLogin={handleLogin} />
+            </Route>
+            <Route>
+              {isLoggedIn ? ( <Redirect to="/" /> ) : ( <Redirect to="/signin" /> ) }
             </Route>
           </Switch>
           <Footer />
         </div>
-
       </CurrentUserContext.Provider>
   );
 }

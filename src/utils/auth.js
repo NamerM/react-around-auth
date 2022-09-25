@@ -1,13 +1,13 @@
-const BASE_URL = "https://register.nomoreparties.co";
+export const BASE_URL = "https://register.nomoreparties.co";
 
-export const signup = (username, password, email) => {
+export const signup = ( password, email ) => {
   return fetch(`${BASE_URL}/src/utils/auth/local`, {
     method: "POST",
     headers: {
 	  "Accept": "application/json",
 	  "Content-Type": "application/json"
     },
-    body: JSON.stringify({ username, password, email }),
+    body: JSON.stringify({ password, email }),
   })
     .then((response) => {
 	try {
@@ -30,10 +30,10 @@ export const signin = (identifier, password) => {
     },
     body: JSON.stringify({ identifier, password }),
   }).then((response) => response.json())
-  .then((data) => {
-    if(data.jwt) {
+  .then((token) => {
+    if(token) {
         localStorage.setItem("token", token);   //"token" = "jwt"
-        return data;
+        return token;
       } else {
         return
       }

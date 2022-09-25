@@ -1,6 +1,6 @@
 import React from "react";
 import headerLogo from "../images/logo-aroundtheus.svg";
-import NavBar from "./Nav";
+
 
 function Header() {
   return (
@@ -10,7 +10,6 @@ function Header() {
         src={headerLogo}
         alt="Logo text writes Around the U.S."
       />
-      <NavBar />
     </header>
   );
 }

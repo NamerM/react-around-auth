@@ -1,8 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import Logo from "./Logo.js";
-import * as auth from "../auth.js";
-import "./styles/Login.css";
+import * as auth from "../utils/auth.js";
+// import "./styles/Login.css";
 
 class Login extends React.Component {
   constructor(props) {
@@ -26,7 +25,7 @@ class Login extends React.Component {
     if (!this.state.username || !this.state.password) {
 	return;
   }
-         auth.authorize  (this.state.username, this.state.password)
+         auth.signin  (this.state.username, this.state.password)
      .then((data) => {
       if (data.jwt) {         // you need to check if the data has a jwt
         this.setState({ 	  // reset the state then in the callback,
@@ -40,10 +39,9 @@ class Login extends React.Component {
     }
 
 
-    render() {
+    render() {  //css kontrol tüm sınıflar
       return (
         <div onSubmit={this.handleSubmit} className="login">
-      <Logo title={"CryptoDucks"} />
       <p className="login__welcome"> This app contains highly sensitive information. Please sign in 	or register to access CryptoDucks.
       </p>
       <p className="login__error">
@@ -66,3 +64,5 @@ class Login extends React.Component {
       );
      }
     }
+
+    export default Login;
