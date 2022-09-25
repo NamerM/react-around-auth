@@ -41,7 +41,10 @@ class Api {
 
   getInitialCards() {
     return fetch(this._baseUrl + '/cards', {
-      headers: this._headers
+      headers:
+        this._headers,
+        Authorization: `Bearer ${localStorage.getItem('token') }`  //app.js..handlelogin 1st parameter 'token'
+
     })
     .then(this._checkResponse)
   } //name  & link in the body check m.
@@ -101,3 +104,13 @@ const api = new Api({
 }) // this._baseUrl // this._headers
 
 export default api;
+
+const customFetch = (url, options) => {
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...headers.options,
+      Authorization: `Bearer ${localStorage.getItem('token') }`
+     }
+  })
+}
