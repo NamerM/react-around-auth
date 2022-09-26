@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as auth from "../utils/auth";
 
 
-function signister({ isLoading, onsignisterUser, handleSubmit, buttonText = "Sign Up", }) {
+function register({ isLoading, onregisterUser, handleSubmit, buttonText = "Sign Up", }) {
   const currentUser = React.useContext(CurrentUserContext)
 
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ function signister({ isLoading, onsignisterUser, handleSubmit, buttonText = "Sig
    function handleSubmit(e) {
     e.preventDefault();
 
-    onsignisterUser({
+    onregisterUser({
       email,
       password,
       });
