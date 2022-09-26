@@ -1,16 +1,32 @@
 import React from 'react';
+import TickIcon from '../images/TickIcon.svg';
+import ErrorIcon from '../images/ErrorIcon.svg'
 
-function InfoToolTip({name, about}) {
-
+function InfoToolTip({ isOpen, onClose, status}) {
 return (
-  <section className={`popup popup_type_${name} ${card ? 'popup_open' : ''}`} > {/* burası değişecek */}
-    <div className="popup__square popup__square_preview">
-      <button type='button' className='popup__close popup__close_preview' onClick={onClose}></button>
-      <img className="popup__image" src={card ? card.link : ''} alt={card ? card.name : ''} />  {/* popup__infoTool css ? diğer kısımlar? */}
-      <p className="popup__subtitle">{card ? card.name : '' }</p>
+  <div className={`popup ${isOpen && "popup_open"}`}>
+    <div className="popup__square">
+      <form className="popup__form" noValidate>
+        <button type="button" className="popup__close" onClick={onClose}></button>
+        {status === "success"? (
+          <div>
+            <img className="popup__icon" src={TickIcon} alt="" />
+            <p className="popup__status-message">
+              Success! Now you have been registered.
+            </p>
+          </div>
+        ) : (
+          <div>
+            <img className="popup__icon" src={ErrorIcon} alt="" />
+            <p className="popup__status-message">
+              Oops, something went wrong! Please try again.
+            </p>
+          </div>
+        )}
+      </form>
     </div>
-  </section>
-  )
+  </div>
+  );
 }
 
 

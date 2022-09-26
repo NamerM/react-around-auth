@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as auth from "../utils/auth";
 
 
-function register({ isLoading, onregisterUser, handleSubmit, buttonText = "Sign Up", }) {
+const Register = ({ onregisterUser, handleSubmit }) => {   // buttonText: "Sign up", isLoading
   const currentUser = React.useContext(CurrentUserContext)
 
   const [email, setEmail] = useState('');
@@ -56,7 +56,7 @@ function register({ isLoading, onregisterUser, handleSubmit, buttonText = "Sign 
   );
 }
 
-export default register;
+export default Register;
 
 
 // class signister extends React.Component {

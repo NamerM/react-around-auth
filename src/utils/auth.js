@@ -1,44 +1,45 @@
 export const BASE_URL = "https://register.nomoreparties.co";
 
-export const signup = ( password, email ) => {
-  return fetch(`${BASE_URL}/src/utils/auth/local`, {
+export const signup = (email, password) => {
+  return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
-	  "Accept": "application/json",
-	  "Content-Type": "application/json"
+      Accept: "application/json",
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify({ password, email }),
+    body: JSON.stringify({ email, password }),
   })
     .then((response) => {
-	try {
-	 if (response.status === 200) {
-	   return response.json();
-	  }
-	 } catch (e) { return e;
-	 }
+      if (response.status === 201) {
+        return response.json();
+      }
+    })
+    .then((res) => {
+      return res;
     })
     .catch((err) => console.log(err));
  };
 
 
-export const signin = (identifier, password) => {
-  return fetch(`${BASE_URL}/src/utils/auth/local`, {  //BASE_URL değişecek başka const ile
+export const signin = (email, password) => {
+  return fetch(`${BASE_URL}/signin`, {  //BASE_URL değişecek başka const ile  neden src/components/login degil bal
     method: "POST",
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ identifier, password }),
-  }).then((response) => response.json())
-  .then((token) => {
-    if(token) {
-        localStorage.setItem("token", token);   //"token" = "jwt"
-        return token;
-      } else {
-        return
-      }
-    })
-    .catch((err) => console.log(err));
+    body: JSON.stringify({ email, password }),
+  })
+    .then((response) => response.json())
+    .then((token) => {
+      if(token) {
+          localStorage.setItem('token', token);   //"token" = "jwt"
+          return token;
+        } else {
+          return
+        }
+      })
+      .catch((err) => console.log(err));
 }
 
 export const checkToken = () => {

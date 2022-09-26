@@ -11,6 +11,7 @@ import '../index.js';
 import * as auth from "../utils/auth.js";
 import Register from './Register.js';
 import Login from './Login.js';
+import InfoToolTip from './InfoToolTip.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
 import { Redirect, Switch, useHistory, Route } from 'react-router-dom';
@@ -35,14 +36,16 @@ function App() {
   const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState('');
 
-  const handleRegister = (password, email) => {
-    auth.signup(password, email)
-      .then
+  const handleRegister = (email, password) => {
+    auth.signup(email, password)
+      .then((res) => { //{ data: { _id, email } }
+
+      })
   }
 
-  const handleLogin = (token) => {
-    auth.signin(token)
-      .then(res => {  // { data: token  }
+  const handleLogin = (email, password) => {
+    auth.signin(email, password)
+      .then(res => {  // { token: '....'  }
         setisLoggedIn(true)
         history.push('/')
         localStorage.setItem('token', token)
@@ -225,6 +228,15 @@ function App() {
           />
           <Header />
           <Switch>
+            <Route path={"/signup"}>
+              <Register handleSubmit={handleRegister} />
+            </Route>
+            <Route path={"/signin"}>
+              <Login handleLogin={handleLogin} />
+            </Route>
+            <Route>
+              {isLoggedIn ? ( <Redirect to="/" /> ) : ( <Redirect to="/signin" /> ) }
+            </Route>
             <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken} >     {/* component={<Main /> */}
               <Main
               onEditAvatarClick={handleEditAvatarClick}
@@ -236,15 +248,6 @@ function App() {
               cards = {cards}
               />
             </ProtectedRoute>
-            <Route path={"/signup"}>
-              <Register onRegisterUser={handleRegister} isLoading={submitButtonEffect} />
-            </Route>
-            <Route path={"/signin"}>
-              <Login handleLogin={handleLogin} />
-            </Route>
-            <Route>
-              {isLoggedIn ? ( <Redirect to="/" /> ) : ( <Redirect to="/signin" /> ) }
-            </Route>
           </Switch>
           <Footer />
         </div>
