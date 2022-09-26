@@ -42,7 +42,7 @@ const Login = ({ onLogin }) => {
               onChange={handleEmailChange} required />
           </label>
           <label className="sign-form__input">
-            <input className="popup__input popup__input_type_signup"
+            <input className="sign-form__textfield"
             name="password"
             type="password"
             placeholder="Password"

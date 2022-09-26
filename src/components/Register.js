@@ -34,10 +34,19 @@ const Register = ({ onregisterUser, handleSubmit }) => {   // buttonText: "Sign 
         <div className="sign-form__area">
           <h3 className="sign-form__title">Sign Up</h3>
           <label className="sign-form__input">
-            <input className="sign-form__textfield" name="email" type="email" placeholder="Email" onChange={handleEmailChange} required />
+            <input className="sign-form__textfield"
+              name="email"
+              type="email"
+              placeholder="Email"
+              onChange={handleEmailChange} required />
           </label>
           <label className="sign-form__input">
-            <input className="popup__input popup__input_type_signup" name="password" type="password" placeholder="Password" onChange={handlePasswordChange}  required/>
+            <input
+              className="sign-form__textfield"
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={handlePasswordChange}  required/>
           </label>
         </div>
         <div className="sign-form__area">
