@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
 import { Link, useHistory } from "react-router-dom";
-// import "./styles/Register.css";
+// import "./styles/signister.css";
 import * as auth from "../utils/auth";
 
 
-function Register({ isLoading, onRegisterUser, handleSubmit, buttonText = "Sign Up", }) {
+function signister({ isLoading, onsignisterUser, handleSubmit, buttonText = "Sign Up", }) {
   const currentUser = React.useContext(CurrentUserContext)
 
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ function Register({ isLoading, onRegisterUser, handleSubmit, buttonText = "Sign 
    function handleSubmit(e) {
     e.preventDefault();
 
-    onRegisterUser({
+    onsignisterUser({
       email,
       password,
       });
@@ -29,24 +29,24 @@ function Register({ isLoading, onRegisterUser, handleSubmit, buttonText = "Sign 
 
 
 	return (
-    <div className="reg-form">
-      <form className="reg-form__field" onSubmit={handleSubmit}>
-        <div className="reg-form__wrapper">
-          <h3 className="reg-form__title">Sign Up</h3>
-          <label className="reg-form__input">
-            <input className="reg-form__textfield" name="email" type="email" placeholder="Email" onChange={handleEmailChange} required />
+    <div className="sign-form">
+      <form className="sign-form__field" onSubmit={handleSubmit}>
+        <div className="sign-form__area">
+          <h3 className="sign-form__title">Sign Up</h3>
+          <label className="sign-form__input">
+            <input className="sign-form__textfield" name="email" type="email" placeholder="Email" onChange={handleEmailChange} required />
           </label>
-          <label className="reg-form__input">
+          <label className="sign-form__input">
             <input className="popup__input popup__input_type_signup" name="password" type="password" placeholder="Password" onChange={handlePasswordChange}  required/>
           </label>
         </div>
-        <div className="reg-form__wrapper">
-          <button className="reg-form__button" type="submit">
+        <div className="sign-form__area">
+          <button className="sign-form__button" type="submit">
             Sign Up
           </button>
-          <p className="reg-form__text">
+          <p className="sign-form__text">
             Already a member? {' '}
-            <Link className="reg-form__link" to="/signin">
+            <Link className="sign-form__link" to="/signin">
               Log in here!
             </Link>
           </p>
@@ -56,10 +56,10 @@ function Register({ isLoading, onRegisterUser, handleSubmit, buttonText = "Sign 
   );
 }
 
-export default Register;
+export default signister;
 
 
-// class Register extends React.Component {
+// class signister extends React.Component {
 //   constructor(props) {
 // 	super(props);
 // 	this.state = {
@@ -90,10 +90,10 @@ export default Register;
 
 // render() {
 // 	return (
-// 	  <div className="register">
+// 	  <div className="signister">
 // 		<Logo title={"CryptoDucks"} />
-// 		<p className="register__welcome">Please register.</p>
-// 		<form className="register__form">
+// 		<p className="signister__welcome">Please signister.</p>
+// 		<form className="signister__form">
 // 		  <label>Username:</label>
 // 		  <input name="username" type="text" value={this.state.username} onChange={this.handleChange} />
 // 		  <label>Email:</label>
@@ -103,16 +103,16 @@ export default Register;
 // 		  <label>Confirm password:</label>
 // 		  <input name="confirmPassword" type="password" value={this.state.confirmPassword} onChange={this.handleChange} />
 // 		</form>
-// 	  	<div className="register__button-container">
-// 		  <button oSubmit={this.handleSubmit} className="register__link"> Sign up </button>
+// 	  	<div className="signister__button-container">
+// 		  <button oSubmit={this.handleSubmit} className="signister__link"> Sign up </button>
 // 	    	</div>
-// 	    	<div className="register__signin"> <p>Already a member?</p> <Link to="login" className="register__login-link"> Log in here </Link>
+// 	    	<div className="signister__signin"> <p>Already a member?</p> <Link to="login" className="signister__login-link"> Log in here </Link>
 // 	    	</div>
 // 	  </div> );
 //   }
 // }
 
-// export default Register;
+// export default signister;
 
 
 //      <form className="popup__formfield">
