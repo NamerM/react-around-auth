@@ -6,19 +6,15 @@ import ImagePopup from './ImagePopup.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
-import api from '../../src/utils/api';
-import '../index.js';
-import * as auth from "../utils/auth.js";
 import Register from './Register.js';
 import Login from './Login.js';
 import InfoToolTip from './InfoToolTip.js';
 import ProtectedRoute from './ProtectedRoute.js';
+import '../index.js';
+import api from '../../src/utils/api';
+import * as auth from "../utils/auth.js";
 import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
 import { Redirect, Switch, useHistory, Route } from 'react-router-dom';
-
-//app.use('signin');
-//app.use('signup');
-//app.use(auth);
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});   // {name, about, avatar }
@@ -35,6 +31,7 @@ function App() {
   const [isCheckingToken, setisCheckingToken] = useState(true);
   const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState('');
+  const token = localStorage.getItem("token");
 
   const handleRegister = (email, password) => {
     auth.signup(email, password)
@@ -48,7 +45,7 @@ function App() {
       .then(res => {  // { token: '....'  }
         setisLoggedIn(true)
         history.push('/')
-        localStorage.setItem('token', token)
+        localStorage.setItem("token", token)
       })
   }
 

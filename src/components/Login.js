@@ -1,22 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from "react-router-dom";
 import * as auth from "../utils/auth.js";
+import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
 // import "./styles/Login.css";
 
-const Login = ({ handleSubmit }) => {
+const Login = ({ handleSubmit, value }) => {
   const currentUser = React.useContext(CurrentUserContext)
 
   const [email, setEmail] = useState('');
   const [password , setPassword] = useState('');
 
-
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({
-	[name]: value,
-    });
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -43,10 +36,10 @@ const Login = ({ handleSubmit }) => {
           <div className="sign-form__area">
             <h3 className="sign-form__title">Sign Up</h3>
             <label className="sign-form__input">
-              <input className="sign-form__textfield" name="email" type="email" placeholder="Email" onChange={handleEmailChange} required />
+              <input className="sign-form__textfield" name="email" type="email" placeholder="Email" required />
             </label>
             <label className="sign-form__input">
-              <input className="popup__input popup__input_type_signup" name="password" type="password" placeholder="Password" onChange={handlePasswordChange}  required/>
+              <input className="popup__input popup__input_type_signup" name="password" type="password" placeholder="Password" required/>
             </label>
           </div>
           <div className="sign-form__area">
