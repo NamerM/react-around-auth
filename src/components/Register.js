@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
-import { Link, useHistory } from "react-router-dom";
+import React, { useState} from 'react';
+// import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
+import { Link } from "react-router-dom";
 // import "./styles/signister.css";
-import * as auth from "../utils/auth";
 
-
-const Register = ({ onregisterUser, handleSubmit }) => {   // buttonText: "Sign up", isLoading
-  const currentUser = React.useContext(CurrentUserContext)
+const Register = ({ onregisterUser }) => {   // buttonText: "Sign up", isLoading
+  // const currentUser = React.useContext(CurrentUserContext)
 
   const [email, setEmail] = useState('');
   const [password , setPassword] = useState('');

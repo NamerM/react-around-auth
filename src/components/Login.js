@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Link, withRouter } from "react-router-dom";
-import * as auth from "../utils/auth.js";
-import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 // import "./styles/Login.css";
 
 const Login = ({ onLogin }) => {
-  const currentUser = React.useContext(CurrentUserContext)
-
   const [email, setEmail] = useState('');
   const [password , setPassword] = useState('');
-
 
   function handleSubmit(e) {
     e.preventDefault();
