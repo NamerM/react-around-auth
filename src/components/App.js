@@ -225,15 +225,6 @@ function App() {
           />
           <Header />
           <Switch>
-            <Route path={"/signup"}>
-              <Register handleSubmit={handleRegister} />
-            </Route>
-            <Route path={"/signin"}>
-              <Login handleLogin={handleLogin} />
-            </Route>
-            <Route>
-              {isLoggedIn ? ( <Redirect to="/" /> ) : ( <Redirect to="/signin" /> ) }
-            </Route>
             <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken} >     {/* component={<Main /> */}
               <Main
               onEditAvatarClick={handleEditAvatarClick}
@@ -245,6 +236,15 @@ function App() {
               cards = {cards}
               />
             </ProtectedRoute>
+            <Route path={"/signup"}>
+              <Register handleSubmit={handleRegister} />
+            </Route>
+            <Route path={"/signin"}>
+              <Login handleLogin={handleLogin} />
+            </Route>
+            <Route>
+              {isLoggedIn ? ( <Redirect to="/" /> ) : ( <Redirect to="/signin" /> ) }
+            </Route>
           </Switch>
           <Footer />
         </div>

@@ -13,11 +13,11 @@ const Register = ({ onregisterUser, handleSubmit }) => {   // buttonText: "Sign 
 
    function handleSubmit(e) {
     e.preventDefault();
-
-    onregisterUser({
+    const userData = {
       email,
       password,
-      });
+    };
+    onregisterUser(userData);
   }
   function handleEmailChange(e) {
     setEmail(e.target.value);
