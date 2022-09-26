@@ -56,7 +56,7 @@ function register({ isLoading, onregisterUser, handleSubmit, buttonText = "Sign 
   );
 }
 
-export default signister;
+export default register;
 
 
 // class signister extends React.Component {
