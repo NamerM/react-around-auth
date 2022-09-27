@@ -20,9 +20,8 @@ export const signup = (email, password) => {  //register yerine singup var
     .catch((err) => console.log(err));
  };
 
-
 export const signin = (email, password) => {   // login yerine signin
-  return fetch(`${BASE_URL}/signin`, {  //BASE_URL değişecek başka const ile  neden src/components/login degil bal
+  return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -30,7 +29,10 @@ export const signin = (email, password) => {   // login yerine signin
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json() }
+      })
     .then((data) => {
       if(data) {
           localStorage.setItem("token", data.token);   //"token" = "jwt"
@@ -45,7 +47,13 @@ export const signin = (email, password) => {   // login yerine signin
 
 export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
-    Authorization:  `Bearer ${localStorage.getItem(token) }`
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`  //${localStorage.getItem(token)}
+    },
+
   })
 }
 

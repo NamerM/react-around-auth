@@ -9,6 +9,7 @@ import AddPlacePopup from './AddPlacePopup.js';
 import Register from './Register.js';
 import Login from './Login.js';
 import InfoToolTip from './InfoToolTip.js';
+import Spinner from './Spinner.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import '../index.js';
 import api from '../../src/utils/api';
@@ -26,45 +27,69 @@ function App() {
   const [submitButtonEffect, setSubmitButtonEffect] = useState(false);
   //P14 Additions
   const history = useHistory();
-  const [userData, setUserData] = useState({});
+  const [user, setUser] = useState({ email: 'email@email.com' });
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [isCheckingToken, setisCheckingToken] = useState(true);
   const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState('');
-  const [email, setEmail] = useState('');
 
-  const handleRegister = (email, password) => {
-    auth.signup(email, password)
-      .then((res) => { //{ data: { _id, email } }
-
+  const onLogin = ({ email, password }) => {
+    auth.signin(email, password)
+      .then(res => { //{ data: { _id, email } }
+        if(res.token) {
+          setisLoggedIn(true);
+          localStorage.setItem('token', res.token);
+          history.push('/main');
+        } else {
+          setTooltipStatus('fail');
+          setisInfoToolTipOpen(true);
+        }
+      })
+      .catch((err)=> {
+        console.log("err =>", err);
+        setTooltipStatus('fail');
+        setisInfoToolTipOpen(true);
       })
   }
 
-  const handleLogin = (email, password) => {
-    const token = localStorage.getItem("token");
-    auth.signin(email, password)
-      .then(res => {  // { token: '....'  }
-        setisLoggedIn(true)
-        history.push('/')
-        localStorage.setItem("token", token)
+  const onRegisterUser = ({ email, password }) => {
+    auth.signup(email, password)
+      .then((res) => { //{ data: { _id, email }
+        if(res) {  //res.data._id
+          setTooltipStatus('success');
+          setisInfoToolTipOpen(true);
+          history.push('/signin')
+        } else {
+          setTooltipStatus('fail');
+          setisInfoToolTipOpen(true);
+        }
       })
+      .catch((err) => {
+        console.log("err =>", err);
+        setTooltipStatus('fail');
+        setisInfoToolTipOpen(true);
+      });
   }
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-
     if(token) {
-      auth.checkToken()
-      .then(res => {  // { data: {email, _id} }
-        history.push('/')
-        setUserData(res)
-      })
-      .catch((err) => {
-        history.push('/signin')
-      })
-      .finally(() => setisCheckingToken(false))
+      auth.checkToken(token)
+        .then(res => {
+          const { data: { _id, email } } = res
+          if(res) {  //res.data._id
+            setisLoggedIn(true);
+            setUser({ _id, email });
+            history.push('/main');
+          }
+        })
+        .catch((err) => {
+          console.log("err =>", err)
+          history.push('/signin')
+        })
+        .finally(() => setisCheckingToken(false))
     }
-  }, [])//empty dependencies to use it only once.
+  }, [])
 
   useEffect(() => {
     if(isLoggedIn) {
@@ -76,7 +101,9 @@ function App() {
   }, [isLoggedIn])
 
   const handleSignout = () => {
-    setisLoggedIn(false)
+    setisLoggedIn(false);
+    localStorage.removeItem('token');
+    history.push('/signin');
   }
 
   useEffect(() => {
@@ -84,12 +111,11 @@ function App() {
       const token = localStorage.getItem("token");
       localStorage.removeItem('token', token)
       history.push('/signin')
-      setUserData({})
+      setUser({})
     }
   }, [isLoggedIn])
 
-
-//** */
+//**p11 parts */
   useEffect(() => {
     api.getUserInfo()
       .then( res => {  // { data: { name, avatar, about, _id}}
@@ -133,6 +159,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(undefined);
+    setisInfoToolTipOpen(false);
   }
 
   function handleCardClick(card) {
@@ -196,8 +223,6 @@ function App() {
       })
     }
 
-
-
   return (
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page__content">
@@ -225,7 +250,7 @@ function App() {
             onClose={closeAllPopups}
             status={tooltipStatus}
           />
-          <Header email={email} handleSignout={handleSignout}/>
+          <Header  handleSignout={handleSignout}/>   {/* email={email}*/ }
           <Switch>
             <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken} >
               <Main
@@ -239,10 +264,10 @@ function App() {
               />
             </ProtectedRoute>
             <Route path={"/signin"}>
-              <Login handleLogin={handleLogin} />
+              <Login onLogin={onLogin} />
             </Route>
             <Route path={"/signup"}>
-              <Register handleSubmit={handleRegister} />
+              <Register onRegisterUser={onRegisterUser} />
             </Route>
             <Route>
               {isLoggedIn ? ( <Redirect to="/" /> ) : ( <Redirect to="/signin" /> ) }

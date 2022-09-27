@@ -1,11 +1,7 @@
 import React, { useState} from 'react';
-// import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
 import { Link } from "react-router-dom";
-// import "./styles/signister.css";
 
-const Register = ({ onregisterUser }) => {   // buttonText: "Sign up", isLoading
-  // const currentUser = React.useContext(CurrentUserContext)
-
+const Register = ({ onRegisterUser }) => {  //property name used on return
   const [email, setEmail] = useState('');
   const [password , setPassword] = useState('');
 
@@ -14,13 +10,13 @@ const Register = ({ onregisterUser }) => {   // buttonText: "Sign up", isLoading
     const userData = {
       email,
       password,
-    };
-    onregisterUser(userData);
+    }
+    onRegisterUser(userData);  //app.js function name
   }
+
   function handleEmailChange(e) {
     setEmail(e.target.value);
   }
-
   function handlePasswordChange(e) {
     setPassword(e.target.value);
   }
@@ -32,14 +28,16 @@ const Register = ({ onregisterUser }) => {   // buttonText: "Sign up", isLoading
           <h3 className="sign-form__title">Sign Up</h3>
           <label className="sign-form__input">
             <input className="sign-form__textfield"
+              value={email}
               name="email"
-              type="email"
+              type="text"
               placeholder="Email"
               onChange={handleEmailChange} required />
           </label>
           <label className="sign-form__input">
             <input
               className="sign-form__textfield"
+              value={password}
               name="password"
               type="password"
               placeholder="Password"
@@ -94,31 +92,7 @@ export default Register;
 //     }
 // }
 
-// render() {
-// 	return (
-// 	  <div className="signister">
-// 		<Logo title={"CryptoDucks"} />
-// 		<p className="signister__welcome">Please signister.</p>
-// 		<form className="signister__form">
-// 		  <label>Username:</label>
-// 		  <input name="username" type="text" value={this.state.username} onChange={this.handleChange} />
-// 		  <label>Email:</label>
-// 		  <input name="email" type="email" value={this.state.email} onChange={this.handleChange} />
-// 		  <label>Password:</label>
-// 		  <input name="password" type="password" value={this.state.password} onChange={this.handleChange} />
-// 		  <label>Confirm password:</label>
-// 		  <input name="confirmPassword" type="password" value={this.state.confirmPassword} onChange={this.handleChange} />
-// 		</form>
-// 	  	<div className="signister__button-container">
-// 		  <button oSubmit={this.handleSubmit} className="signister__link"> Sign up </button>
-// 	    	</div>
-// 	    	<div className="signister__signin"> <p>Already a member?</p> <Link to="login" className="signister__login-link"> Log in here </Link>
-// 	    	</div>
-// 	  </div> );
-//   }
-// }
 
-// export default signister;
 
 
 //      <form className="popup__formfield">

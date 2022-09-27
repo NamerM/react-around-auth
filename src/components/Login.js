@@ -6,13 +6,9 @@ const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password , setPassword] = useState('');
 
-  function handleSubmit(e) {
+  function handleLogin(e) {
     e.preventDefault();
-    const userData = {
-      email,
-      password,
-    };
-    onLogin(userData);
+    onLogin(email, password);
   }
 
   function handleEmailChange(e) {
@@ -25,12 +21,13 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="sign-form">
-      <form className="sign-form__field" onSubmit={handleSubmit}>
+      <form className="sign-form__field" onSubmit={handleLogin}>
         <div className="sign-form__area">
           <h3 className="sign-form__title">Log In</h3>
           <label className="sign-form__input">
             <input
               className="sign-form__textfield"
+              value={email}
               name="email"
               type="text"
               placeholder="Email"
@@ -38,6 +35,7 @@ const Login = ({ onLogin }) => {
           </label>
           <label className="sign-form__input">
             <input className="sign-form__textfield"
+            value={password}
             name="password"
             type="password"
             placeholder="Password"

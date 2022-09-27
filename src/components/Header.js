@@ -2,7 +2,7 @@ import React from "react";
 import headerLogo from "../images/logo-aroundtheus.svg";
 
 
-function Header() {
+function Header({ email }) {
   return (
     <header className="header">
       <img
@@ -10,6 +10,7 @@ function Header() {
         src={headerLogo}
         alt="Logo text writes Around the U.S."
       />
+      <p className="header__email" value={email} />
     </header>
   );
 }

@@ -43,8 +43,7 @@ class Api {
     return fetch(this._baseUrl + '/cards', {
       headers:
         this._headers,
-        Authorization: `Bearer ${localStorage.getItem('token') }`  //app.js..handlelogin 1st parameter 'token'
-
+        // Authorization: `Bearer ${localStorage.getItem('token') }`  //app.js..handlelogin 1st parameter 'token'
     })
     .then(this._checkResponse)
   } //name  & link in the body check m.

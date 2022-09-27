@@ -7,7 +7,6 @@ return (
   <div className={`popup ${isOpen && "popup_open"}`}>
     <div className="popup__square">
       <form className="popup__form" noValidate>
-        <button type="button" className="popup__close" onClick={onClose}></button>
         {status === "success"? (
           <div>
             <img className="popup__icon" src={TickIcon} alt="" />
@@ -23,6 +22,7 @@ return (
             </p>
           </div>
         )}
+                <button type="button" className="popup__close" onClick={onClose}></button>
       </form>
     </div>
   </div>
