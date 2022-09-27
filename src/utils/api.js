@@ -104,13 +104,3 @@ const api = new Api({
 }) // this._baseUrl // this._headers
 
 export default api;
-
-const customFetch = (url, options) => {
-  return fetch(url, {
-    ...options,
-    headers: {
-      ...headers.options,
-      Authorization: `Bearer ${localStorage.getItem('token') }`
-     }
-  })
-}

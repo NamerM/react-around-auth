@@ -6,18 +6,7 @@ function ProtectedRoute({ children, isLoggedIn }) {
     <Route>
       { isLoggedIn ? children : <Redirect to='/sign-in' /> }
     </Route>
-
   )
-
-
-
-  // return isCheckingToken ?
-  //   <Loader /> :
-  //   props.loggedIn ?
-  //     props.component : <Redirect to={'/sign-in'} /> //<Navigate to=? />
-
-
-
 }
 
 export default ProtectedRoute;

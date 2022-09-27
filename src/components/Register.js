@@ -25,7 +25,6 @@ const Register = ({ onregisterUser }) => {   // buttonText: "Sign up", isLoading
     setPassword(e.target.value);
   }
 
-
 	return (
     <div className="sign-form">
       <form className="sign-form__field" onSubmit={handleSubmit}>

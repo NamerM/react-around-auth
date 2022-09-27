@@ -31,7 +31,7 @@ function App() {
   const [isCheckingToken, setisCheckingToken] = useState(true);
   const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState('');
-  const token = localStorage.getItem("token");
+  const [email, setEmail] = useState('');
 
   const handleRegister = (email, password) => {
     auth.signup(email, password)
@@ -41,6 +41,7 @@ function App() {
   }
 
   const handleLogin = (email, password) => {
+    const token = localStorage.getItem("token");
     auth.signin(email, password)
       .then(res => {  // { token: '....'  }
         setisLoggedIn(true)
@@ -80,6 +81,7 @@ function App() {
 
   useEffect(() => {
     if(!isLoggedIn) {
+      const token = localStorage.getItem("token");
       localStorage.removeItem('token', token)
       history.push('/signin')
       setUserData({})
@@ -223,9 +225,9 @@ function App() {
             onClose={closeAllPopups}
             status={tooltipStatus}
           />
-          <Header />
+          <Header email={email} handleSignout={handleSignout}/>
           <Switch>
-            <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken} >     {/* component={<Main /> */}
+            <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken} >
               <Main
               onEditAvatarClick={handleEditAvatarClick}
               onEditProfileClick={handleEditProfileClick}
@@ -236,11 +238,11 @@ function App() {
               cards = {cards}
               />
             </ProtectedRoute>
-            <Route path={"/signup"}>
-              <Register handleSubmit={handleRegister} />
-            </Route>
             <Route path={"/signin"}>
               <Login handleLogin={handleLogin} />
+            </Route>
+            <Route path={"/signup"}>
+              <Register handleSubmit={handleRegister} />
             </Route>
             <Route>
               {isLoggedIn ? ( <Redirect to="/" /> ) : ( <Redirect to="/signin" /> ) }

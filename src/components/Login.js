@@ -46,12 +46,12 @@ const Login = ({ onLogin }) => {
         </div>
         <div className="sign-form__area">
           <button className="sign-form__button" type="submit">
-            Sign Up
+            Log In
           </button>
           <p className="sign-form__text">
-            Already a member? {' '}
-            <Link className="sign-form__link" to="/signin">
-              Log in here!
+            Not a member? {' '}
+            <Link className="sign-form__link" to="/signup">
+              Register Here!
             </Link>
           </p>
         </div>
