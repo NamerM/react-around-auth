@@ -8,7 +8,11 @@ const Login = ({ onLogin }) => {
 
   function handleLogin(e) {
     e.preventDefault();
-    onLogin(email, password);
+    const userData = {
+      email,
+      password,
+    }
+    onLogin(userData);  // app.js function name
   }
 
   function handleEmailChange(e) {

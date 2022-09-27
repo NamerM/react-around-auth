@@ -27,7 +27,7 @@ function App() {
   const [submitButtonEffect, setSubmitButtonEffect] = useState(false);
   //P14 Additions
   const history = useHistory();
-  const [user, setUser] = useState({ email: 'email@email.com' });
+  const [userData, setUserData] = useState({ email: 'email@email.com' });
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [isCheckingToken, setisCheckingToken] = useState(true);
   const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
@@ -35,9 +35,10 @@ function App() {
 
   const onLogin = ({ email, password }) => {
     auth.signin(email, password)
-      .then(res => { //{ data: { _id, email } }
-        if(res.token) {
+      .then((res) => { //{ data: { _id, email } }
+        if(res) {
           setisLoggedIn(true);
+          setUserData({ email });
           localStorage.setItem('token', res.token);
           history.push('/main');
         } else {
@@ -54,7 +55,7 @@ function App() {
 
   const onRegisterUser = ({ email, password }) => {
     auth.signup(email, password)
-      .then((res) => { //{ data: { _id, email }
+      .then((res) => {
         if(res) {  //res.data._id
           setTooltipStatus('success');
           setisInfoToolTipOpen(true);
@@ -75,12 +76,12 @@ function App() {
     const token = localStorage.getItem('token')
     if(token) {
       auth.checkToken(token)
-        .then(res => {
-          const { data: { _id, email } } = res
+        .then((res) => {
+          // const { data: { _id, email } } = res
           if(res) {  //res.data._id
+            setUserData({ email: res.data.email});
             setisLoggedIn(true);
-            setUser({ _id, email });
-            history.push('/main');
+            history.push('/react-around-auth');
           }
         })
         .catch((err) => {
@@ -111,7 +112,7 @@ function App() {
       const token = localStorage.getItem("token");
       localStorage.removeItem('token', token)
       history.push('/signin')
-      setUser({})
+      setUserData({})
     }
   }, [isLoggedIn])
 
@@ -250,9 +251,13 @@ function App() {
             onClose={closeAllPopups}
             status={tooltipStatus}
           />
-          <Header  handleSignout={handleSignout}/>   {/* email={email}*/ }
+          <Header
+            isLoggedIn={isLoggedIn}
+            email={userData.email}
+            handleSignout={handleSignout}
+          />
           <Switch>
-            <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken} >
+            <ProtectedRoute exact path={"/react-around-auth"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken}>
               <Main
               onEditAvatarClick={handleEditAvatarClick}
               onEditProfileClick={handleEditProfileClick}
