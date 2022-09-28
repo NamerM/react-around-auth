@@ -29,7 +29,7 @@ function App() {
   const history = useHistory();
   const [userData, setUserData] = useState({ email: 'email@mail.com', });
   const [isLoggedIn, setisLoggedIn] = useState(false);
-  const [isCheckingToken, setisCheckingToken] = useState(true);
+  const [isCheckingToken, setIsCheckingToken] = useState(true);
   const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState('');
 
@@ -78,11 +78,11 @@ function App() {
       auth
         .checkToken(token)
         .then((res) => {
-          // const { data: { _id, email } } = res
-          if(res) {  //res.data._id
+          if(res) {
             setUserData(res.data.email);
             setisLoggedIn(true);
-            history.push('/');  // react-around-auth
+            setIsCheckingToken(false)
+            history.push('/');
           } else {
             localStorage.removeItem('token');
           }
@@ -91,7 +91,7 @@ function App() {
           console.log("err =>", err)
           history.push('/signin')
         })
-        .finally(() => setisCheckingToken(false))
+        .finally(() => setIsCheckingToken(false))
     }
   }, [])
 
@@ -260,7 +260,7 @@ function App() {
             handleSignOut={handleSignOut}
           />
           <Switch>
-            <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken}>
+            <ProtectedRoute exact path={"/"} isLoggedIn={isLoggedIn} isCheckingToken={isCheckingToken}>
               <Main
               onEditAvatarClick={handleEditAvatarClick}
               onEditProfileClick={handleEditProfileClick}
