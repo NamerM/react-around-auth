@@ -1,5 +1,14 @@
 export const BASE_URL = "https://register.nomoreparties.co";
 
+// const customFecth = (url, options) => {
+//   return fetch(url, {
+//     ...options,
+//     headers: {
+//       ...headers.options,
+//       Authorization: `Bearer ${localStorage.getItem('token')}`}
+//     })
+// }
+
 export const signup = (email, password) => {  //register yerine singup var
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
@@ -51,9 +60,22 @@ export const checkToken = (token) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`  //${localStorage.getItem(token)}
+      Authorization: `Bearer ${token}`  //${localStorage.getItem(token)}
     },
-
+  })
+  .then((response) => {
+    if (response.status === 200 || response.status === 201) {
+      return response.json();
+    }
+    if (response.status === 400) {
+      throw new Error ('Token is missing or provided in wrong Format')
+    }
+  })
+  .then((res) => {
+    return res;
+  })
+  .catch((err) => {
+    console.log("err =>", err);
   })
 }
 

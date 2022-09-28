@@ -27,7 +27,7 @@ function App() {
   const [submitButtonEffect, setSubmitButtonEffect] = useState(false);
   //P14 Additions
   const history = useHistory();
-  const [userData, setUserData] = useState({ email: 'email@email.com' });
+  const [userData, setUserData] = useState({ email: 'email@mail.com', });
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [isCheckingToken, setisCheckingToken] = useState(true);
   const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
@@ -75,13 +75,16 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if(token) {
-      auth.checkToken(token)
+      auth
+        .checkToken(token)
         .then((res) => {
           // const { data: { _id, email } } = res
           if(res) {  //res.data._id
-            setUserData({ email: res.data.email});
+            setUserData(res.data.email);
             setisLoggedIn(true);
-            history.push('/react-around-auth');
+            history.push('/');  // react-around-auth
+          } else {
+            localStorage.removeItem('token');
           }
         })
         .catch((err) => {
@@ -257,7 +260,7 @@ function App() {
             handleSignout={handleSignout}
           />
           <Switch>
-            <ProtectedRoute exact path={"/react-around-auth"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken}>
+            <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken}>
               <Main
               onEditAvatarClick={handleEditAvatarClick}
               onEditProfileClick={handleEditProfileClick}
