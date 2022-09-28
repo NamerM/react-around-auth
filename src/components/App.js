@@ -104,7 +104,7 @@ function App() {
     }
   }, [isLoggedIn])
 
-  const handleSignout = () => {
+  const handleSignOut = () => {
     setisLoggedIn(false);
     localStorage.removeItem('token');
     history.push('/signin');
@@ -257,7 +257,7 @@ function App() {
           <Header
             isLoggedIn={isLoggedIn}
             email={userData.email}
-            handleSignout={handleSignout}
+            handleSignOut={handleSignOut}
           />
           <Switch>
             <ProtectedRoute exact path={"/"} isloggedIn={isLoggedIn} isCheckingToken={isCheckingToken}>
