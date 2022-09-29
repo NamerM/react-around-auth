@@ -11,6 +11,13 @@
 @import url(../src/blocks/footer/footer.css);
 @import url(../src/blocks/popup/popup.css);
 
+@import url(../src/blocks/sign-form/sign-form.css);
+@import url(../src/blocks/sign-form/__field/sign-form__field.css);
+@import url(../src/blocks/sign-form/__title/sign-form__title.css);
+@import url(../src/blocks/sign-form/__area/sign-form__area.css);
+@import url(../src/blocks/sign-form/__input/sign-form__input.css);
+@import url(../src/blocks/sign-form/__button/sign-form__button.css);
+
 @import url(../src/blocks/page/__content/page__content.css);
 
 @import url(../src/blocks/header/__logo/header__logo.css);

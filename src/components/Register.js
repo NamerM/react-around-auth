@@ -27,7 +27,7 @@ const Register = ({ onRegisterUser }) => {  //property name used on return
         <div className="sign-form__area">
           <h3 className="sign-form__title">Sign Up</h3>
           <label className="sign-form__input">
-            <input className="sign-form__textfield"
+            <input className="sign-form__input_text"
               value={email}
               name="email"
               type="text"
@@ -36,7 +36,7 @@ const Register = ({ onRegisterUser }) => {  //property name used on return
           </label>
           <label className="sign-form__input">
             <input
-              className="sign-form__textfield"
+              className="sign-form__input_text"
               value={password}
               name="password"
               type="password"

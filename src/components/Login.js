@@ -30,7 +30,7 @@ const Login = ({ onLogin }) => {
           <h3 className="sign-form__title">Log In</h3>
           <label className="sign-form__input">
             <input
-              className="sign-form__textfield"
+              className="sign-form__input_text"
               value={email}
               name="email"
               type="text"
@@ -38,7 +38,7 @@ const Login = ({ onLogin }) => {
               onChange={handleEmailChange} required />
           </label>
           <label className="sign-form__input">
-            <input className="sign-form__textfield"
+            <input className="sign-form__input_text"
             value={password}
             name="password"
             type="password"
