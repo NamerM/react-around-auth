@@ -2,7 +2,9 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import headerLogo from '../images/logo-aroundtheus.svg';
 
-function Header({ isLoggedIn, email, handleSignOut, onLogin, onRegister }) {
+function Header({ isLoggedIn, email, handleSignOut }) {
+  const location = useLocation();
+
   return (
     <header className="header">
       <img
@@ -20,8 +22,8 @@ function Header({ isLoggedIn, email, handleSignOut, onLogin, onRegister }) {
           </div>
         ) : (
           <div className="header__container">
-          <Link to={useLocation.pathname === '/signin' ? '/signup' : '/signin'} className='header__link'>
-            {useLocation.pathname === '/signin' ? 'Sign up' : 'Log in'}
+          <Link to={location.pathname === '/signin' ? '/signup' : '/signin'} className='header__link'>
+            {location.pathname === '/signin' ? 'Sign up' : 'Log in'}
           </Link>
           </div> )
           }

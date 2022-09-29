@@ -9,7 +9,6 @@ import AddPlacePopup from './AddPlacePopup.js';
 import Register from './Register.js';
 import Login from './Login.js';
 import InfoToolTip from './InfoToolTip.js';
-import Spinner from './Spinner.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import '../index.js';
 import api from '../../src/utils/api';
@@ -256,6 +255,7 @@ function App() {
           />
           <Header
             isLoggedIn={isLoggedIn}
+            path="/signup"
             email={userData.email}
             handleSignOut={handleSignOut}
           />
