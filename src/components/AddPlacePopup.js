@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import PopupWithForm from './PopupWithForm.js';
+import React, { useState, useEffect } from "react";
+import PopupWithForm from "./PopupWithForm.js";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }){
 
-  const [cardName, setCardName] = useState('');
-  const [cardLink , setCardLink] = useState('');
-
+  const [cardName, setCardName] = useState("");
+  const [cardLink , setCardLink] = useState("");
 
   useEffect(() => {
-    setCardName('')
-    setCardLink('')
+    setCardName("");
+    setCardLink("");
   }, [isOpen])
 
   function handleSubmit(e){
@@ -51,6 +50,5 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }){
 
   )
 }
-
 
 export default AddPlacePopup;

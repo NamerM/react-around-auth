@@ -1,11 +1,9 @@
 import React from 'react';
-import { CurrentUserContext } from '../../src/contexts/CurrentUserContext'
+import { CurrentUserContext } from '../../src/contexts/CurrentUserContext';
 
-function Card({ card, onClick, onCardLike, onCardDelete }) { // card = { title, _id, owner, link, likes }
+function Card({ card, onClick, onCardLike, onCardDelete }) {
   const { name, link} = card;
-  const currentUser = React.useContext(CurrentUserContext)  // currentUser.name currentUser.link
-
-
+  const currentUser = React.useContext(CurrentUserContext)
 
   function handleClick() {
    onClick(card);
@@ -13,17 +11,17 @@ function Card({ card, onClick, onCardLike, onCardDelete }) { // card = { title, 
   }
 
   const isOwn = card.owner._id === currentUser._id;
-  const cardDeleteButtonClassName = `elements__button-delete ${isOwn ? '' : 'elements__button-delete_hidden'}`   // default değeri koymak için ''
+  const cardDeleteButtonClassName = `elements__button-delete ${isOwn ? '' : 'elements__button-delete_hidden'}`
 
-  const isLiked = card.likes.some(user => user._id === currentUser._id);   // Create a variable which you then set in `className` for the like button
-  const cardLikeButtonClassName = `elements__button-like ${isLiked ? 'elements__button-like_active' : ''}` // unliked default değer ''
+  const isLiked = card.likes.some(user => user._id === currentUser._id);
+  const cardLikeButtonClassName = `elements__button-like ${isLiked ? 'elements__button-like_active' : ''}`
 
   function handleLikeClick() {
     onCardLike(card);
   }
 
   function handleDeleteClick() {
-    onCardDelete(card._id);  //card yerine card._id
+    onCardDelete(card._id);
   }
 
 return (
@@ -44,7 +42,6 @@ return (
     </li>
   )
 }
-
 
 export default Card;
 

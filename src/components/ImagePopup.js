@@ -13,5 +13,4 @@ return (
   )
 }
 
-
 export default ImagePopup;

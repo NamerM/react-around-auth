@@ -1,12 +1,10 @@
 import React, { useRef} from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
-
-
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading}){
   const avatarRef =  useRef()
 
-  React.useEffect(() => {    // thanks I got the idea and checked over +
+  React.useEffect(() => {
     avatarRef.current.value =""
   }, [isOpen])
 
@@ -19,9 +17,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading}){
     });
   }
 
-
   return (
-
   <PopupWithForm
     title="Change Profile Picture"
     name="avatar-change"
@@ -39,7 +35,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading}){
 
   )
 }
-
 
 export default EditAvatarPopup;
 

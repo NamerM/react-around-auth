@@ -22,7 +22,7 @@ return (
             </p>
           </div>
         )}
-                <button type="button" className="popup__close" onClick={onClose}></button>
+        <button type="button" className="popup__close" onClick={onClose}></button>
       </form>
     </div>
   </div>
