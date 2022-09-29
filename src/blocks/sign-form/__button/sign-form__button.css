@@ -2,3 +2,7 @@
   margin-top: 186px;
   height: 50px;
 }
+
+.sign-form__button:hover {
+  cursor: pointer;
+}
