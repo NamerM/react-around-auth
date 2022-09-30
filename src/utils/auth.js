@@ -1,16 +1,13 @@
 export const BASE_URL = "https://register.nomoreparties.co";
 
-// const customFecth = (url, options) => {
-//   return fetch(url, {
-//     ...options,
-//     headers: {
-//       ...headers.options,
-//       Authorization: `Bearer ${localStorage.getItem('token')}`}
-//     })
-// }
+const checkFetch = (url, headers) => {
+  return fetch(url, headers).then((res) =>
+  res.ok ? res.json() : Promise.reject(res.StatusText)
+  )
+}
 
-export const signup = (email, password) => {  //register yerine singup var
-  return fetch(`${BASE_URL}/signup`, {
+export const signup = (email, password) => {  //register yerine signup var
+  return checkFetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -18,19 +15,18 @@ export const signup = (email, password) => {  //register yerine singup var
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => {
-      if (response.status === 201) {
-        return response.json();
-      }
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => console.log(err));
+    // .then((response) => {
+    //   if (response.status === 201) {
+    //     return response.json();
+    //   }
+    //   if (response.status === 400) {
+    //     throw new Error('Missing information in one or more fields');
+    //   }
+    // })
  };
 
 export const signin = (email, password) => {   // login yerine signin
-  return fetch(`${BASE_URL}/signin`, {
+  return checkFetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -38,10 +34,17 @@ export const signin = (email, password) => {   // login yerine signin
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => {
-      if (response.ok) {
-        return response.json() }
-      })
+  // .then((response) => {
+  //   if (response.status === 200) {
+  //     return response.json();
+  //   }
+  //   if (response.status === 400) {
+  //     throw new Error('Missing information in one or more fields');
+  //   }
+  //   if (response.status === 401) {
+  //     throw new Error('The user with the specified email has not found');
+  //   }
+  // })
     .then((data) => {
       if(data) {
           localStorage.setItem("token", data.token);   //"token" = "jwt"
@@ -51,11 +54,11 @@ export const signin = (email, password) => {   // login yerine signin
           return
         }
       })
-      .catch((err) => console.log(err));
+
 }
 
 export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return checkFetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -63,37 +66,16 @@ export const checkToken = (token) => {
       Authorization: `Bearer ${token}`  //${localStorage.getItem(token)}
     },
   })
-  .then((response) => {
-    if (response.status === 200 || response.status === 201) {
-      return response.json();
-    }
-    if (response.status === 400) {
-      throw new Error ('Token is missing or provided in wrong Format')
-    }
-  })
-  .then((res) => {
-    return res;
-  })
-  .catch((err) => {
-    console.log("err =>", err);
-  })
+  // .then((response) => {
+  //   if (response.status === 200 || response.status === 201) {
+  //     return response.json();
+  //   }
+  //   if (response.status === 400) {
+  //     throw new Error ('Token is missing or provided in wrong Format')
+  //   }
+  // })
+  // .then((res) => {
+  //   return res;
+  // })
 }
 
-// export const checkToken = (token) => {
-//   return fetch(`${BASE_URL}/users/me`, {
-//     method: "GET",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     },
-//   })
-//   .then((response) => {
-//     if (response.status === 200) {
-//       return response.json();
-//     }
-//   })
-//   .then((res) => {
-//     return res;
-//   });
-// }

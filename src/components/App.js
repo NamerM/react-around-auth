@@ -46,7 +46,7 @@ function App() {
         }
       })
       .catch((err)=> {
-        console.log("err =>", err);
+        // console.log("err =>", err);
         setTooltipStatus('fail');
         setisInfoToolTipOpen(true);
       })
@@ -57,18 +57,16 @@ function App() {
       .then((res) => {
         if(res) {  //res.data._id
           setTooltipStatus('success');
-          setisInfoToolTipOpen(true);
           history.push('/signin')
         } else {
           setTooltipStatus('fail');
-          setisInfoToolTipOpen(true);
         }
       })
       .catch((err) => {
-        console.log("err =>", err);
+        // console.log("err =>", err);
         setTooltipStatus('fail');
-        setisInfoToolTipOpen(true);
-      });
+      })
+      .finally(() => setisInfoToolTipOpen(true))
   }
 
   useEffect(() => {
@@ -78,7 +76,7 @@ function App() {
         .checkToken(token)
         .then((res) => {
           if(res) {
-            setUserData(res.data.email);
+            setUserData({ email: res.data.email})
             setisLoggedIn(true);
             setIsCheckingToken(false)
             history.push('/');
@@ -87,23 +85,14 @@ function App() {
           }
         })
         .catch((err) => {
-          console.log("err =>", err)
+          // console.log("err =>", err)
           history.push('/signin')
         })
         .finally(() => setIsCheckingToken(false))
     }
   }, [])
 
-  useEffect(() => {
-    if(isLoggedIn) {
-      Promise.all([api.getInitialCards(), api.getUserInfo()])
-        .then(res => {
-        })
-        .catch((err) => { console.log(err)})
-    }
-  }, [isLoggedIn])
-
-  const handleSignOut = () => {
+   const handleSignOut = () => {
     setisLoggedIn(false);
     localStorage.removeItem('token');
     history.push('/signin');

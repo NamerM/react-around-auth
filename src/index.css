@@ -60,3 +60,6 @@
 @import url(../src/blocks/popup/__save/popup__save.css);
 @import url(../src/blocks/popup/__save/_disabled/popup__save_disabled.css);
 @import url(../src/blocks/popup/__close/popup__close.css);
+
+@import url(../src/blocks/popup/__icon/popup__icon.css);
+@import url(../src/blocks/popup/__status-message/__status-message.css);
