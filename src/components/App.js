@@ -27,28 +27,28 @@ function App() {
   //P14 Additions
   const history = useHistory();
   const [userData, setUserData] = useState({ email: 'email@mail.com', });
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckingToken, setIsCheckingToken] = useState(true);
-  const [isInfoToolTipOpen, setisInfoToolTipOpen] = useState(false);
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState('');
 
   const onLogin = ({ email, password }) => {
     auth.signin(email, password)
       .then((res) => { //{ data: { _id, email } }
         if(res) {
-          setisLoggedIn(true);
+          setIsLoggedIn(true);
           setUserData({ email });
           localStorage.setItem('token', res.token);
           history.push('/main');
         } else {
           setTooltipStatus('fail');
-          setisInfoToolTipOpen(true);
+          setIsInfoToolTipOpen(true);
         }
       })
       .catch((err)=> {
         // console.log("err =>", err);
         setTooltipStatus('fail');
-        setisInfoToolTipOpen(true);
+        setIsInfoToolTipOpen(true);
       })
   }
 
@@ -66,7 +66,7 @@ function App() {
         // console.log("err =>", err);
         setTooltipStatus('fail');
       })
-      .finally(() => setisInfoToolTipOpen(true))
+      .finally(() => setIsInfoToolTipOpen(true))
   }
 
   useEffect(() => {
@@ -77,7 +77,7 @@ function App() {
         .then((res) => {
           if(res) {
             setUserData({ email: res.data.email})
-            setisLoggedIn(true);
+            setIsLoggedIn(true);
             setIsCheckingToken(false)
             history.push('/');
           } else {
@@ -93,19 +93,11 @@ function App() {
   }, [])
 
    const handleSignOut = () => {
-    setisLoggedIn(false);
+    setIsLoggedIn(false);
     localStorage.removeItem('token');
     history.push('/signin');
   }
 
-  useEffect(() => {
-    if(!isLoggedIn) {
-      const token = localStorage.getItem("token");
-      localStorage.removeItem('token', token)
-      history.push('/signin')
-      setUserData({})
-    }
-  }, [isLoggedIn])
 
 //**p11 parts */
   useEffect(() => {
@@ -151,7 +143,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(undefined);
-    setisInfoToolTipOpen(false);
+    setIsInfoToolTipOpen(false);
   }
 
   function handleCardClick(card) {
