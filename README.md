@@ -8,7 +8,7 @@ We cloned the project we first set sailed to Front-End with React. Around-react,
 
 
 ## Project
-The project requires us to add authorization & registration features. Used the server running on [https://register.nomoreparties.co](https://register.nomoreparties.co/ for all of the authoziation, registration and token requests.
+The project requires us to add authorization & registration features. Used the server running on https://mnamer.students.nomoredomainssbs.ru/ for all of the authoziation, registration and token requests.
 
 
 ## Project Tech: REACT, JSX, Api
